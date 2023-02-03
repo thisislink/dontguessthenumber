@@ -4,30 +4,29 @@ int losingNumber = random.Next(1, 11);
 Console.WriteLine($"\nLosing number: {losingNumber}");
 Boolean gameover = false;
 int gameRound = 1;
+decimal winnings = 0.00M;
 
 // Game Loop - 5 rounds
 while (!gameover)
 {
     int playerNumber = 0;
-    double winnings = 0.00;
 
     if (gameRound <= 5 && playerNumber != losingNumber)
-    {
-        
+    {   
         Console.WriteLine($"\nRound: {gameRound}");
         Console.WriteLine("\nChoose a number between 1 and 10. What number do you want to pick?: ");
         playerNumber = Convert.ToInt32(Console.ReadLine());
         
         // check if playerNumber is the random number
-        // if true end game else go another round and increment winnings
+        // if true end game else go another round
         if(playerNumber == losingNumber)
         {
             Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}");
             gameover = true;
         }
-        winnings += 100.00;
+        winnings += 100.00M;
         gameRound++;
-        
+
     } else if(gameRound > 5 && playerNumber != losingNumber)
     {
         Console.WriteLine("\nGameover, you did not guess the number");
