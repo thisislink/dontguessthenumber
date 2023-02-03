@@ -24,7 +24,7 @@ while (!gameover)
             Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}");
             gameover = true;
         }
-        winnings += 100.00M;
+        winnings += gameRound * 100.00M;
         gameRound++;
 
     } else if(gameRound > 5 && playerNumber != losingNumber)
