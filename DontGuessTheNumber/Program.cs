@@ -19,8 +19,6 @@ while (!gameover)
 
         // check if number was already entered
         // if true, player must re-enter number, else continue with winning checks
-        // check if playerNumber is the random number
-        // if true end game else increment the winnings and go another round
         do
         {
             if (playerNumbers.Contains(playerNumber))
@@ -32,23 +30,29 @@ while (!gameover)
 
         } while (playerNumbers.Contains(playerNumber));
 
-
-        if (playerNumber == losingNumber)
+        // check if playerNumber is the random number
+        // if true, end game else increment the winnings and go another round
+        if (playerNumber == losingNumber && gameRound < 3)
         {
-            Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}");
+            Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}\nYou did not win any money.");
             gameover = true;
-        } else 
+        } else if(playerNumber == losingNumber && gameRound >= 3)
+        {
+            Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}\n You won ${winnings}");
+            gameover = true;
+        } else
         {
             playerNumbers.Add(playerNumber);
             winnings += gameRound * 100.00M;
             gameRound++;
-        } 
+            Console.WriteLine($"So far, you have won ${winnings} dollars.");
+        }
     }
 
     // check if player has won the game
     if (gameRound > 5 && playerNumber != losingNumber)
     {
-        Console.WriteLine($"\nCongratulations! You beat the game. You won ${winnings}.");
+        Console.WriteLine($"\nCongratulations! You beat the game. You won ${winnings} dollars.");
         gameover = true;
     } 
 }
