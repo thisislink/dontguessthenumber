@@ -1,9 +1,6 @@
 ﻿// randomly choose a number between 1 and 10 -- this is the number the player cannot guess
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
 Random random = new Random();
 int losingNumber = random.Next(1, 11);
-Console.WriteLine($"\nLosing number: {losingNumber}");
 bool gameover = false;
 int gameRound = 1;
 decimal winnings = 0.00M;
@@ -40,21 +37,6 @@ while (!gameover)
                 Console.WriteLine($"\nYou must enter a number between 1 and 10. Try again: ");
             }
         } while(playerNumber < 1 || playerNumber > 10 || playerNumbers.Contains(playerNumber));
-
-        /*
-         
-         // check if number was already entered
-        // if true, player must re-enter number, else continue with winning checks
-        do
-        {
-            if (playerNumbers.Contains(playerNumber))
-            {
-                Console.WriteLine($"You have already entered {playerNumber}. Try another number: ");
-                playerNumber = Convert.ToInt32(Console.ReadLine());
-
-            }
-        } while (playerNumbers.Contains(playerNumber));
-        */
 
         // check if playerNumber is the random number
         // if true, end game else increment the winnings and go another round
