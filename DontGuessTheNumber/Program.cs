@@ -1,20 +1,66 @@
 ﻿// randomly choose a number between 1 and 10 -- this is the number the player cannot guess
 Random random = new Random();
 int losingNumber = random.Next(1, 11);
-
-Boolean gameover = false;
+bool gameover = false;
 int gameRound = 1;
+decimal winnings = 0.00M;
+List<int> playerNumbers = new();
+int playerNumber = 0;
 
 // Game Loop - 5 rounds
 while (!gameover)
 {
-    if(gameRound <= 5)
+    if (gameRound <= 5 && playerNumber != losingNumber)
     {
-        Console.WriteLine($"Round: {gameRound}");
-        gameRound++;
-    } else
-    {
-        Console.WriteLine("Gameover");
-        gameover = true;
+        Console.WriteLine($"\nRound: {gameRound}");
+        // check if player input is non-numeric 
+        do
+        { 
+            try
+            {
+                Console.WriteLine("\nChoose a number between 1 and 10. What number do you want to pick?: ");
+                if (int.TryParse(Console.ReadLine(), out playerNumber))
+                {
+                    // check if number is between 1 and 10
+                    // check if number was already entered
+                    // if true, player must re-enter number, else continue with winning checks
+                    if (playerNumber < 1 || playerNumber > 10)
+                    {
+                        Console.WriteLine($"\nInvalid entry. Try again: ");
+                    } else if (playerNumbers.Contains(playerNumber))
+                    {
+                        Console.WriteLine($"You have already entered {playerNumber}. Try another number: ");                    
+                    }  
+                }
+            } catch
+            {
+                Console.WriteLine($"\nYou must enter a number between 1 and 10. Try again: ");
+            }
+        } while(playerNumber < 1 || playerNumber > 10 || playerNumbers.Contains(playerNumber));
+
+        // check if playerNumber is the random number
+        // if true, end game else increment the winnings and go another round
+        if (playerNumber == losingNumber && gameRound < 3)
+        {
+            Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}\nYou did not win any money.");
+            gameover = true;
+        } else if(playerNumber == losingNumber && gameRound >= 3)
+        {
+            Console.WriteLine($"\nGameover, you guessed the random number: {losingNumber}\n You won ${winnings}");
+            gameover = true;
+        } else
+        {
+            playerNumbers.Add(playerNumber);
+            winnings += gameRound * 100.00M;
+            gameRound++;
+            Console.WriteLine($"So far, you have won ${winnings} dollars.");
+        }
     }
+
+    // check if player has won the game
+    if (gameRound > 5 && playerNumber != losingNumber)
+    {
+        Console.WriteLine($"\nCongratulations! You beat the game. You won ${winnings} dollars.");
+        gameover = true;
+    } 
 }
