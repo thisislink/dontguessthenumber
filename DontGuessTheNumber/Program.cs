@@ -1,8 +1,10 @@
 ﻿// randomly choose a number between 1 and 10 -- this is the number the player cannot guess
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 Random random = new Random();
 int losingNumber = random.Next(1, 11);
 Console.WriteLine($"\nLosing number: {losingNumber}");
-Boolean gameover = false;
+bool gameover = false;
 int gameRound = 1;
 decimal winnings = 0.00M;
 List<int> playerNumbers = new();
@@ -14,27 +16,35 @@ while (!gameover)
     if (gameRound <= 5 && playerNumber != losingNumber)
     {
         Console.WriteLine($"\nRound: {gameRound}");
-        Console.WriteLine("\nChoose a number between 1 and 10. What number do you want to pick?: ");
-        playerNumber = Convert.ToInt32(Console.ReadLine());
-        
-        // check if number is within range and if it was already entered
-        // if true, player must re-enter number, else continue with winning checks
         // check if player input is non-numeric 
-        
-        while(playerNumber < 1 || playerNumber > 10 || !int.TryParse(playerNumber.ToString(), out playerNumber))
-        {
-            if (playerNumber < 1)
+        do
+        { 
+            try
             {
-                Console.WriteLine("\nThe number you entered cannot be less than 1. Try another number: ");
-                playerNumber = Convert.ToInt32(Console.ReadLine());
-            }
-            else if (playerNumber > 10)
+                Console.WriteLine("\nChoose a number between 1 and 10. What number do you want to pick?: ");
+                if (int.TryParse(Console.ReadLine(), out playerNumber))
+                {
+                    // check if number is between 1 and 10
+                    // check if number was already entered
+                    // if true, player must re-enter number, else continue with winning checks
+                    if (playerNumber < 1 || playerNumber > 10)
+                    {
+                        Console.WriteLine($"\nInvalid entry. Try again: ");
+                    } else if (playerNumbers.Contains(playerNumber))
+                    {
+                        Console.WriteLine($"You have already entered {playerNumber}. Try another number: ");                    
+                    }  
+                }
+            } catch
             {
-                Console.WriteLine("\nThe number you enetered cannot be greater than 10. Try another number: ");
-                playerNumber = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine($"\nYou must enter a number between 1 and 10. Try again: ");
             }
-        }
+        } while(playerNumber < 1 || playerNumber > 10 || playerNumbers.Contains(playerNumber));
 
+        /*
+         
+         // check if number was already entered
+        // if true, player must re-enter number, else continue with winning checks
         do
         {
             if (playerNumbers.Contains(playerNumber))
@@ -44,6 +54,7 @@ while (!gameover)
 
             }
         } while (playerNumbers.Contains(playerNumber));
+        */
 
         // check if playerNumber is the random number
         // if true, end game else increment the winnings and go another round
