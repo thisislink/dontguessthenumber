@@ -16,9 +16,25 @@ while (!gameover)
         Console.WriteLine($"\nRound: {gameRound}");
         Console.WriteLine("\nChoose a number between 1 and 10. What number do you want to pick?: ");
         playerNumber = Convert.ToInt32(Console.ReadLine());
-
-        // check if number was already entered
+        
+        // check if number is within range and if it was already entered
         // if true, player must re-enter number, else continue with winning checks
+        // check if player input is non-numeric 
+        
+        while(playerNumber < 1 || playerNumber > 10 || !int.TryParse(playerNumber.ToString(), out playerNumber))
+        {
+            if (playerNumber < 1)
+            {
+                Console.WriteLine("\nThe number you entered cannot be less than 1. Try another number: ");
+                playerNumber = Convert.ToInt32(Console.ReadLine());
+            }
+            else if (playerNumber > 10)
+            {
+                Console.WriteLine("\nThe number you enetered cannot be greater than 10. Try another number: ");
+                playerNumber = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+
         do
         {
             if (playerNumbers.Contains(playerNumber))
@@ -27,7 +43,6 @@ while (!gameover)
                 playerNumber = Convert.ToInt32(Console.ReadLine());
 
             }
-
         } while (playerNumbers.Contains(playerNumber));
 
         // check if playerNumber is the random number
