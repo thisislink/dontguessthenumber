@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DontGuessTheNumber.Models
+namespace DontGuessTheNumber.Interfaces
 {
-    internal class RandomNumber
+    internal interface IPlayerInputCheck
     {
-        public int GetRandomNumberValue { get; set; }
+        bool ProcessPlayerInput();
     }
 }
