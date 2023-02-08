@@ -18,3 +18,6 @@ while (!_gameover)
 {    
     _gameover = _playerInput.ProcessPlayerInput();
 }
+
+Console.WriteLine("\n\nPress any key to close the game.");
+Console.ReadKey();
