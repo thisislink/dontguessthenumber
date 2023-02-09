@@ -19,6 +19,11 @@ If you make it to round 3, you are guaranteed to win money. However, if you lose
 Game Constraints: 
     
     - You are only allowed to enter a number between 1 and 10
+    - There will only be a maximum of 5 rounds
+    - You can only win up to $1500 fake dollars
+    - You only win money each round you do not guess the computer's number
+    - You are only guaranteed winnings if you make it to round 3
+    - You lose by guessing the computer's number
 
 ## Running the Console Application from Visual Studio
 
